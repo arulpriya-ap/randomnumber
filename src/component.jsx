@@ -1,15 +1,14 @@
-import "./index.css"
-import { useState } from "react"
+import "./index.css";
+import { useState } from "react";
 
-function RandomNumber(){
-    const [randomNumber, setRandomNumber] = useState("");
+function RandomNumber() {
+  const [randomNumber, setRandomNumber] = useState("");
   const [numbers, setNumbers] = useState([]);
 
   function generateNumber() {
     const num = Math.floor(Math.random() * 100) + 1;
 
     setRandomNumber(num);
-
     setNumbers([...numbers, num]);
   }
 
@@ -20,11 +19,14 @@ function RandomNumber(){
 
   return (
     <div className="container">
-
       <h1>Random Number Generator</h1>
 
       <div className="numberBox">
-        {randomNumber || <p>Click Generate Number</p>}
+        {randomNumber ? (
+          <h2>{randomNumber}</h2>
+        ) : (
+          <p>No number generated yet</p>
+        )}
       </div>
 
       <button onClick={generateNumber}>
@@ -37,13 +39,17 @@ function RandomNumber(){
 
       <h3>Generated Numbers</h3>
 
-      <ul>
-        {numbers.map((num, index) => (
-          <li key={index}>{num}</li>
-        ))}
-      </ul>
-
+      {numbers.length > 0 ? (
+        <ul>
+          {numbers.map((num, index) => (
+            <li key={index}>{num}</li>
+          ))}
+        </ul>
+      ) : (
+        <p className="nonumbers">No numbers in the list.</p>
+      )}
     </div>
-  )
+  );
 }
-export default RandomNumber
+
+export default RandomNumber;
